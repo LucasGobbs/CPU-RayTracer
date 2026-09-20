@@ -8,6 +8,7 @@ MaterialType :: enum {
 	lambertian,
 	metal,
 	dielectric,
+	diffuse_light,
 }
 
 ObjectType :: enum {
@@ -19,6 +20,7 @@ SceneMaterial :: struct {
 	albedo:           [3]f64,
 	fuzz:             f64,
 	refraction_index: f64,
+	emission:         [3]f64,
 }
 
 SceneObject :: struct {

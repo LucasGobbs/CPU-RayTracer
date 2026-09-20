@@ -1,0 +1,96 @@
+{
+  "name": "cornell",
+  "seed": 42,
+
+  "render": {
+    "width": 1000,
+    "ratio": [1, 1],
+    "upscale": 4,
+    "color_format": 4,
+    "threads": 8,
+    "accelerator": "bvh"
+  },
+
+  "camera": {
+    "position": [2.78, 2.78, -8],
+    "look_at": [2.78, 2.78, 0],
+    "vfov": 40,
+    "defocus_angle": 0,
+    "focus_dist": 0.1,
+    "samples": 100,
+    "max_depth": 50
+  },
+
+  "spheres": [],
+
+  "quads": [
+    {
+      "corner": [0, 0, 0],
+      "edge_u": [0, 5.55, 0],
+      "edge_v": [0, 0, 5.55],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.12, 0.45, 0.15]
+      }
+    },
+    {
+      "corner": [5.55, 0, 0],
+      "edge_u": [0, 5.55, 0],
+      "edge_v": [0, 0, 5.55],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.65, 0.05, 0.05]
+      }
+    },
+    {
+      "corner": [0, 0, 0],
+      "edge_u": [5.55, 0, 0],
+      "edge_v": [0, 0, 5.55],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.73, 0.73, 0.73]
+      }
+    },
+    {
+      "corner": [0, 0, 5.55],
+      "edge_u": [5.55, 0, 0],
+      "edge_v": [0, 5.55, 0],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.73, 0.73, 0.73]
+      }
+    },
+    {
+      "corner": [5.55, 5.55, 5.55],
+      "edge_u": [-5.55, 0, 0],
+      "edge_v": [0, 0, -5.55],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.73, 0.73, 0.73]
+      }
+    }
+  ],
+
+  "cuboids": [
+    {
+      "a": [0, 0, 0],
+      "b": [1.65, 3.3, 1.65],
+      "rotation_deg": 15,
+      "offset": [2.65, 0, 2.95],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.73, 0.73, 0.73]
+      }
+    },
+    {
+      "a": [0, 0, 0],
+      "b": [1.65, 1.65, 1.65],
+      "rotation_deg": -18,
+      "offset": [1.3, 0, 0.65],
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.73, 0.73, 0.73]
+      }
+    }
+  ]
+}

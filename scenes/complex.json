@@ -1,0 +1,67 @@
+{
+  "name": "complex",
+  "seed": 42,
+
+  "render": {
+    "width": 1000,
+    "ratio": [16, 9],
+    "upscale": 4,
+    "color_format": 4,
+    "threads": 8,
+    "accelerator": "bvh"
+  },
+
+  "camera": {
+    "position": [-2, 1.5, 1],
+    "look_at": [0, 0, -1.5],
+    "vfov": 40,
+    "defocus_angle": 0,
+    "focus_dist": 3.4,
+    "samples": 100,
+    "max_depth": 50
+  },
+
+  "spheres": [
+    {
+      "position": [0, -100.5, -1],
+      "radius": 100,
+      "material": { "kind": "metal", "albedo": [0.4, 0.4, 0.4] }
+    },
+    {
+      "position": [-1.1, 0, -1.5],
+      "radius": 0.5,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": [-1.1, 0, -1.5],
+      "radius": 0.4,
+      "material": { "kind": "dielectric", "refraction_index": 0.6666666666666666 }
+    },
+    {
+      "position": [0, 0, -1.5],
+      "radius": 0.5,
+      "material": { "kind": "lambertian", "albedo": [0.8, 0.3, 0.3] }
+    },
+    {
+      "position": [2.1, 0, -1.5],
+      "radius": 1.0,
+      "material": { "kind": "metal", "albedo": [0.9, 0.2, 0.1], "fuzz": 0.001 }
+    }
+  ],
+
+  "quads": [],
+  "cuboids": [],
+
+  "random_grid": {
+    "grid_radius": 5,
+    "position_jitter": ["-0.5;0.5", "-0.5;0.5", "-0.5;0.5"],
+    "direction": ["-0.0000001;0.0000001", "-0.0000001;0.0000001", "-0.0000001;0.0000001"],
+    "radius": "0.05;0.2",
+    "material": {
+      "kinds": ["lambertian", "metal", "dielectric"],
+      "lambertian": { "albedo": ["0;1", "0;1", "0;1"] },
+      "metal":      { "albedo": ["0;1", "0;1", "0;1"], "fuzz": "0;1" },
+      "dielectric": { "refraction_index": "0;1" }
+    }
+  }
+}

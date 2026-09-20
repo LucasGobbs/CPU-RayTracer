@@ -7,12 +7,12 @@ trace_ray :: proc(ray: Ray, depth: int, world: ^World) -> Color {
 	hit_record, hitted := hit_objects(world, ray, .001, math.INF_F64)
 
 	if hitted {
-		has_scattered, scattered_ray, scattered_color := material_scatter(ray, hit_record)
+		has_scattered, scattered_ray, material_color := material_scatter(ray, hit_record)
 		if has_scattered {
-			return scattered_color * trace_ray(scattered_ray, depth - 1, world)
+			return material_color * trace_ray(scattered_ray, depth - 1, world)
 		}
 
-		return Black
+		return material_color
 	}
 
 	unit_direction := vec_unit(ray.direction)

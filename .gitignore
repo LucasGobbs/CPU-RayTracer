@@ -1,5 +1,6 @@
 /odin
 main
+main_debug
 output.ppm
 output.qoi
 odin_bin

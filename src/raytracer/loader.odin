@@ -62,11 +62,7 @@ load_from_scene :: proc(desc: ^scene_data.Scene) -> (CamParams, World) {
 	for quad in desc.quads {
 		world_append_quad(
 			&world,
-			collider.quad_collider_create(
-				Vec3(quad.corner),
-				Vec3(quad.edge_u),
-				Vec3(quad.edge_v),
-			),
+			collider.quad_collider_create(Vec3(quad.corner), Vec3(quad.edge_u), Vec3(quad.edge_v)),
 			load_material(quad.material),
 		)
 	}
@@ -82,6 +78,8 @@ load_material :: proc(material: scene_data.SceneMaterial) -> Material {
 		return MetalMaterial{albedo = Color(material.albedo), fuzz = material.fuzz}
 	case .dielectric:
 		return DieletricMaterial{refraction_index = material.refraction_index}
+	case .diffuse_light:
+		return DiffuseLightMaterial{emission = Color{1.0, 1.0, 1.0}}
 	case:
 		return LambertianMaterial{albedo = Color{1, 0, 1}}
 	}

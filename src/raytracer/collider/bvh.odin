@@ -64,11 +64,11 @@ bvh_build_node :: proc(bvh: ^Bvh, boxes: []Aabb, start, end: int) -> int {
 	}
 
 	// Random Axis - Quicker in the current code
-	axis := rand.int_range(0, 3)
+	// axis := rand.int_range(0, 3)
 
 	// Longest Axis - Even tho Book 2 states that this is a optimization, for me it made the performance worst
 	// maybe was not right implemented (check later)
-	// axis := aabb_longest_axis(box)
+	axis := aabb_longest_axis(box)
 	ctx := BvhBuildContext {
 		boxes = boxes,
 		axis  = axis,

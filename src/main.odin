@@ -1,33 +1,53 @@
 package main
 
-import raytracer "raytracer"
-import collider "raytracer/collider"
-import scene_data "scene"
+import "core:fmt"
+import "core:os"
+import "core:strconv"
+import "core:strings"
+
+USAGE :: `usage: main [options] [config]
+
+  options:
+    --auto-render   render immediately when the editor opens
+    --headless      render without opening the editor, then exit
+    --runs=N        headless render repetitions (median reported), default 3
+
+  config            scene JSON path, default scenes/complex.json
+`
 
 main :: proc() {
-	scene := scene_data.complex_scene()
-	defer scene_data.scene_destroy(&scene)
+	config_path := "scenes/complex.json"
+	auto_render := false
+	headless := false
+	run_count := 1
 
-	raytracer_data := raytracer.init(
-		image_upscale = 4.0,
-		image_width = 1000.0,
-		ratio = scene.camera.ratio,
-		color_format = 4,
-	)
-	cam_params, world := raytracer.load_from_scene(&scene)
-	collider.grouping_build(&world.space, .BVH)
-	defer raytracer.world_destroy(&world)
+	for arg in os.args[1:] {
+		if arg == "--auto-render" {
+			auto_render = true
+		} else if arg == "--headless" {
+			headless = true
+		} else if strings.has_prefix(arg, "--runs=") {
+			n, ok_parsed := strconv.parse_int(arg[len("--runs="):])
+			if !ok_parsed || n < 1 {
+				fmt.eprintfln("main: --runs must be a positive integer, got %q", arg)
+				os.exit(1)
+			}
+			run_count = n
+		} else if arg == "--help" || arg == "-h" {
+			fmt.print(USAGE)
+			return
+		} else if strings.has_prefix(arg, "--") {
+			fmt.eprintfln("main: unknown option %q", arg)
+			fmt.print(USAGE)
+			os.exit(1)
+		} else {
+			config_path = arg
+		}
+	}
 
-	pixels := make([]u8, raytracer_data.buffer_size)
-	defer delete(pixels)
-
-	interactive_preview(
-		&cam_params,
-		&world,
-		&raytracer_data,
-		pixels,
-		cast(f64)raytracer_data.image_upscale,
-		scene.name,
-		amount = 2,
-	)
+	if headless {
+		headless_run(config_path, run_count)
+		return
+	}
+	editor_run(config_path, auto_render)
 }

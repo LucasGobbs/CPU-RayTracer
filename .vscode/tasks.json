@@ -10,6 +10,16 @@
       },
       "group": "build",
       "problemMatcher": []
+    },
+    {
+      "label": "Run Odin",
+      "type": "shell",
+      "command": "./run.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "group": "build",
+      "problemMatcher": []
     }
   ]
 }

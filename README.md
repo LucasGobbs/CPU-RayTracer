@@ -1,29 +1,30 @@
 # Odin Raytracer
 
 A CPU path tracer written in [Odin](https://odin-lang.org/), based on the
-[_Ray Tracing in One Weekend_](https://raytracing.github.io/) book series,
-with an interactive raylib/raygui front-end for changing camera parameters and
-comparing acceleration structures in real time.
+[_Ray Tracing in One Weekend_](https://raytracing.github.io/) book series.
+The interactive preview uses raylib for 3D drawing and raygui for a compact
+camera/render/scene control panel.
 
 ## Table of Contents
 
-- [The Books](#the-books)
-- [Render Gallery](#render-gallery)
-  - [App preview](#app-preview)
-  - [Larger examples](#larger-examples)
-- [Progress & Todo](#progress--todo)
-  - [Book 1 — Ray Tracing in One Weekend](#book-1--ray-tracing-in-one-weekend)
-  - [Book 2 — Ray Tracing: The Next Week](#book-2--ray-tracing-the-next-week)
-  - [Book 3 — Ray Tracing: The Rest of Your Life](#book-3--ray-tracing-the-rest-of-your-life)
-  - [Beyond the Books (engine improvements)](#beyond-the-books-engine-improvements)
-- [Building & Running](#building--running)
-  - [Controls](#controls)
-  - [Scenes](#scenes)
-  - [Render artifacts](#render-artifacts)
-- [Architecture](#architecture)
-  - [Module overview](#module-overview)
-  - [Layout decisions](#layout-decisions)
-- [Known limitations & notes](#known-limitations--notes)
+- [Odin Raytracer](#odin-raytracer)
+  - [Table of Contents](#table-of-contents)
+  - [The Books](#the-books)
+  - [Render Gallery](#render-gallery)
+    - [App preview](#app-preview)
+    - [Larger examples](#larger-examples)
+  - [Progress \& Todo](#progress--todo)
+    - [Book 1 — Ray Tracing in One Weekend](#book-1--ray-tracing-in-one-weekend)
+    - [Book 2 — Ray Tracing: The Next Week](#book-2--ray-tracing-the-next-week)
+    - [Book 3 — Ray Tracing: The Rest of Your Life](#book-3--ray-tracing-the-rest-of-your-life)
+    - [Beyond the Books (engine improvements)](#beyond-the-books-engine-improvements)
+  - [Building \& Running](#building--running)
+    - [Controls](#controls)
+    - [Scenes](#scenes)
+    - [Render artifacts](#render-artifacts)
+    - [Module overview](#module-overview)
+    - [Layout decisions](#layout-decisions)
+  - [Known limitations \& notes](#known-limitations--notes)
 
 ## The Books
 
@@ -40,11 +41,11 @@ Source: [raytracing.github.io](https://raytracing.github.io/) ·
 
 | Render | Description |
 | --- | --- |
-| ![basic](rendered/basic_BVH_render_28.09ms_1789414249919341000.png) | **Basic scene** — hollow-glass bubble (negative-radius trick via nested dielectric), Lambertian and metal spheres, plus the first quad primitive. 28 ms. |
-| ![fast_spheres](rendered/fast_spheres.png) | **Defocus blur** — thin-lens depth of field: the focal plane sits on the mirror ball while the rest smears with aperture size. |
-| ![complex](rendered/complex_BVH_render_5633.69ms_1789405319010355000.png) | **Complex scene** — 100+ random spheres of mixed material on a mirror ground; the RTOW "final scene" equivalent. 5.6 s through the BVH. |
-| ![lots](rendered/lots_of_objects.png) | **Many-object stress test** — book-cover-style field of hundreds of spheres; what the BVH is for. |
-| ![cornell](rendered/cornell_BVH_render_1070.67ms_1789414501959219000.png) | **Cornell box** — correct closed-box geometry with rotated cuboids and a light panel, but no emissive material yet, so the interior is only lit by the sky gradient leaking “through” the box. Lights are the top todo. |
+| ![basic](rendered/2026-09-14_19-30-49_basic_BVH_render_28.09ms_1789414249919341000.png) | **Basic scene** — hollow-glass bubble (negative-radius trick via nested dielectric), Lambertian and metal spheres, plus the first quad primitive. 28 ms. |
+| ![fast_spheres](rendered/2026-09-13_17-24-56_fast_spheres.png) | **Defocus blur** — thin-lens depth of field: the focal plane sits on the mirror ball while the rest smears with aperture size. |
+| ![complex](rendered/2026-09-14_17-01-59_complex_BVH_render_5633.69ms_1789405319010355000.png) | **Complex scene** — 100+ random spheres of mixed material on a mirror ground; the RTOW "final scene" equivalent. 5.6 s through the BVH. |
+| ![lots](rendered/2026-09-07_23-36-45_lots_of_objects.png) | **Many-object stress test** — book-cover-style field of hundreds of spheres; what the BVH is for. |
+| ![cornell](rendered/2026-09-14_19-35-01_cornell_BVH_render_1070.67ms_1789414501959219000.png) | **Cornell box** — correct closed-box geometry with rotated cuboids and a light panel, but no emissive material yet, so the interior is only lit by the sky gradient leaking “through” the box. Lights are the top todo. |
 
 ### App preview
 
@@ -54,25 +55,26 @@ Source: [raytracing.github.io](https://raytracing.github.io/) ·
 
 ### Larger examples
 
-![Many-object scene, wide view](rendered/lots_of_objects_dezoomed.png)
+![Many-object scene, wide view](rendered/2026-09-08_17-56-52_lots_of_objects_dezoomed.png)
 
 *Many-object scene, wide view.*
 
-![Many-object scene, close view](rendered/lots_of_objects_zoomed.png)
+![Many-object scene, close view](rendered/2026-09-08_18-16-34_lots_of_objects_zoomed.png)
 
 *Many-object scene, close view.*
 
-![Complex scene, high-resolution render](rendered/complex_render_86.95s_1789320869936880000.png)
+![Complex scene, high-resolution render](rendered/2026-09-13_17-34-30_complex_render_86.95s_1789320869936880000.png)
 
 *Complex scene with the material-test spheres and random sphere field.*
 
-![Cornell box](rendered/cornell_BVH_render_1070.67ms_1789414501959219000.png)
+![Cornell box](rendered/2026-09-14_19-35-01_cornell_BVH_render_1070.67ms_1789414501959219000.png)
 
 *Cornell box geometry before emissive materials are implemented.*
 
 More renders (including Linear-vs-BVH timing runs) live in `rendered/`; every
-filename encodes `scene_grouping_render_<ms>ms_<ns>.png`, so the directory is
-also a crude benchmark history.
+filename encodes `YYYY-MM-DD_HH-MM-SS_scene_grouping_render_<ms>ms_<ns>.png`
+(UTC slug, applied retroactively to the whole directory on 2026-09-19), so the
+listing sorts chronologically by name and is a benchmark history.
 
 ## Progress & Todo
 
@@ -103,6 +105,9 @@ Status: **geometry and acceleration are complete; shading, lights, and textures 
       showcased.
 - [x] **BVH** — longest-axis split build, slab AABB test, runtime-switchable
       against the brute-force `LinearGrouping` (press `G`).
+- [x] **Headless CLI render mode** (`./main --headless scenes/complex.json`)
+      with run counters (rays, primitive tests, BVH node visits) and a CSV
+      report of every run appended to `reports/renders.csv`.
 - [x] **Quads** — parallelogram primitive with plane + α/β containment test.
 - [x] **Boxes from quads** — `append_cuboid` bakes 6 faces, with Y-rotation
       and translation baked in at scene-build time (Cornell cuboids).
@@ -140,31 +145,53 @@ Status: **not started.**
 
 ## Building & Running
 
-Requires the [Odin compiler](https://odin-lang.org/) (`dev-2025-xx` or newer
-should work); raylib is vendored through `vendor:raylib`, nothing else to install.
+Requires the [Odin compiler](https://odin-lang.org/). Raylib and raygui ship in
+Odin's `vendor:raylib` package.
 
 ```sh
-# Optimized build (matches .vscode/tasks.json)
+# One-command build + run (editor).
+./run.sh
+
+# Optimized build only.
 odin build ./src -out:main -o:aggressive -microarch:native -no-bounds-check -disable-assert
 
-# Run
-./main
+# Debug build (assertions and bounds checks on, for development).
+odin build ./src -out:main_debug -o:none -debug
+
+# Headless render: no window, config-driven, appends a CSV row per invocation.
+./main --headless scenes/complex.json
+./main --headless --runs=5 scenes/complex.json
 ```
+
+`--headless` renders the configured scene without opening the editor
+(`--runs=N` repeats the render N times and reports the median), saves the PNG
+under `rendered/` next to the editor's output, and appends one row to
+`reports/renders.csv` with full run context: config path, scene, accelerator,
+resolution, samples, bounce depth, threads, run count, median/min/max
+milliseconds, and the image file. Each row links to its image, so the CSV plus
+the `rendered/` directory is a complete benchmark history. VS Code offers two
+F5 launch configurations: **Pure render (headless)** is preselected, **Editor**
+is the second option.
 
 ### Controls
 
-The app opens a raylib window with an orbitable 3D wireframe preview of the
-scene (spheres, quads, and the tracer camera's position + image plane) and a
-raygui camera panel.
+The app opens a raylib 3D preview with a raygui sidebar for camera parameters,
+render controls, performance data, and scene selection. The render result can
+replace the preview until `BACKSPACE` is pressed.
 
 | Input | Action |
 | --- | --- |
-| Left drag | Orbit preview camera |
-| Mouse wheel | Zoom preview |
-| Sliders | Change camera position / look-at / vfov / defocus / samples / depth |
-| `SPACE` | Run the (blocking) raytraced render with the current settings |
-| `G` | Rebuild acceleration structure, toggling Linear ↔ BVH |
-| `BACKSPACE` | Back from the rendered image to the preview |
+| Left-click preview | Capture and hide pointer for fly-camera control |
+| Right-click preview | Cast a BVH inspection ray when bounds are visible |
+| `ESC` | Release and show the pointer |
+| Mouse move / `WASD` | Look and move while captured (`SHIFT` is faster) |
+| `SPACE` / `CTRL` | Move up / down while captured |
+| Mouse wheel | Change preview vfov while captured |
+| Sliders | Change tracer camera position, look-at, vfov, defocus, samples, depth |
+| `ENTER` | Run the blocking CPU raytrace |
+| `C` | Capture the preview pose into a scene JSON file |
+| `R` | Reset preview to tracer camera |
+| `G` | Rebuild acceleration structure, toggling Linear/BVH |
 
 ### Scenes
 
@@ -184,47 +211,25 @@ Scenes are plain data builders in `src/scene/scene.odin`; select one in
 ### Render artifacts
 
 Each render is written once (never overwritten) to
-`rendered/<scene>_<GroupingKind>_render_<ms>ms_<ns-timestamp>.png`, so a folder
-listing is a self-describing benchmark log. `main` renders at 4000 px wide,
-RGBA, `upscale = 1.0`; the preview re-renders at whatever resolution the
-window holds.
-
-## Architecture
-
-```mermaid
-flowchart LR
-    main[main.odin] --> scene["scene (data-only .odin builders)"]
-    scene --> loader["loader.odin: Scene -> CamParams + World"]
-    loader --> raytracer["raytracer core"]
-    subgraph raytracer core
-        camera --> renderer
-        renderer --> tracer["tracer (recursive)"]
-        tracer --> hittable["hittable adapter"]
-        hittable --> material["material union (Lambertian/Metal/Dielectric)"]
-        hittable --> collider["collider package"]
-    end
-    collider --> grouping["Grouping = Linear | BVH"]
-    renderer --> preview["preview.odin (raylib/raygui)"]
-    preview --> main
-```
+`rendered/YYYY-MM-DD_HH-MM-SS_<scene>_<GroupingKind>_render_<ms>ms_<ns-timestamp>.png`,
+so a folder listing is a self-describing benchmark log that sorts
+chronologically by name. `main` renders at 4000 px wide, RGBA, `upscale = 1.0`;
+the preview re-renders at whatever resolution the window holds.
 
 ### Module overview
 
 | Path | Role |
 | --- | --- |
-| `src/main.odin` | Entry point: pick scene → build world → start interactive preview |
-| `src/scene/scene.odin` | Data-only scene description (`SceneObject`, `SceneQuad`, `SceneCamera`) — plain `[3]f64`, no renderer types |
-| `src/raytracer/loader.odin` | Translates the scene description into `CamParams` + `World`, enforcing the "spheres before quads" id invariant |
-| `src/raytracer/raymath/` | `Vec3`/`Point3`/`Ray` types and math (reflect, refract, random unit vectors …) |
-| `src/raytracer/collider/` | Geometry & acceleration: `SphereCollider`, `QuadCollider`, `Aabb`, `Grouping` (`LinearGrouping` | `Bvh`) |
-| `src/raytracer/hittable.odin` | Adapter: turns a `collider.HitRecord` into a `raytracer.HitRecord` with the material from the parallel materials array |
-| `src/raytracer/material.odin` | `Material` union + per-type `*_scatter` procs |
-| `src/raytracer/camera.odin` | Viewport setup, defocus-disk sampling, per-pixel ray generation |
-| `src/raytracer/tracer.odin` | The recursive path: hit → scatter → attenuate |
-| `src/raytracer/renderer.odin` | Image partitioning + thread-pool fan-out into the RGBA buffer |
-| `src/raytracer/color.odin` | Gamma + buffer packing |
-| `src/preview.odin` | raylib 3D preview, raygui camera sliders, render saving |
-| `src/utils/` | Generic `Interval(T)`, median-of-durations stat, thread-pool helper, degrees→radians |
+| `src/main.odin` | Entry point: optional scene path, then start the editor |
+| `src/editor.odin` | Raylib loop, scene ownership, blocking CPU renders and shortcuts |
+| `src/editor_sidebar.odin` | Raygui camera, render, stats, and scene controls |
+| `src/editor_main_scene.odin` | Raylib 3D preview and final render display |
+| `src/scene/scene.odin` | Data-only scene description (`SceneObject`, `SceneQuad`, `SceneCamera`) |
+| `src/raytracer/loader.odin` | Scene-to-world conversion |
+| `src/raytracer/raymath/` | `Vec3`/`Point3`/`Ray` types and math |
+| `src/raytracer/collider/` | Geometry, AABBs, Linear grouping, BVH |
+| `src/raytracer/renderer.odin` | Image partitioning and thread-pool rendering |
+| `src/utils/` | Median timing, thread-pool and math helpers |
 
 ### Layout decisions
 
@@ -256,9 +261,9 @@ flowchart LR
 - **CPU, f64, straightforward scalar code** for now: the hot path relies on
   `-o:aggressive -microarch:native -no-bounds-check` and thread-pool image
   partitioning (default 16 partitions) rather than SIMD intrinsics.
-- **Adaptive preview costs.** The raylib preview draws big spheres properly,
-  tiny grid spheres as cubes, and the giant ground sphere as a wireframe. This
-  keeps the 3D preview interactive with hundreds of objects.
+- **Simple preview stack.** Raylib draws the scene and camera markers; raygui
+  exposes only the controls needed to experiment with camera parameters,
+  acceleration structures, and render output.
 
 ## Known limitations & notes
 
