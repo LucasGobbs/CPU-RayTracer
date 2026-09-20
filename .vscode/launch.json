@@ -5,14 +5,14 @@
       "name": "Pure render (headless)",
       "type": "node-terminal",
       "request": "launch",
-      "command": "odin run ./src/ -o:aggressive -microarch:native -no-bounds-check -disable-assert -- --headless scenes/complex.json",
+      "command": "odin run ./src/ -o:aggressive -microarch:native -no-bounds-check -disable-assert -- --headless --path=scenes/complex.json",
       "cwd": "${workspaceFolder}"
     },
     {
       "name": "Editor",
       "type": "node-terminal",
       "request": "launch",
-      "command": "odin run ./src/ -o:aggressive -microarch:native -no-bounds-check -disable-assert -- scenes/complex.json",
+      "command": "odin run ./src/ -o:aggressive -microarch:native -no-bounds-check -disable-assert -- --path=scenes/complex.json",
       "cwd": "${workspaceFolder}"
     }
   ]
