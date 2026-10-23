@@ -464,26 +464,21 @@ editor_save_render :: proc(state: ^Editor_State, elapsed: time.Duration) {
 	state.show_render = true
 }
 
-editor_raytrace :: proc(state: ^Editor_State, amount := 2) {
+editor_raytrace :: proc(state: ^Editor_State) {
 	rl.BeginDrawing()
 	rl.ClearBackground(rl.Color{25, 25, 35, 255})
 	rl.DrawText("Rendering...", 24, 24, 26, rl.ORANGE)
 	rl.EndDrawing()
 
-	run_count := max(amount, 1)
-	runs := make([]time.Duration, run_count, context.temp_allocator)
-	for run in 0 ..< run_count {
-		start := time.tick_now()
-		rayt.renderer_render_threaded(
-			state.raytracer_data,
-			state.cam,
-			&state.world,
-			state.pixels,
-			state.loaded.render.threads,
-		)
-		runs[run] = time.tick_since(start)
-	}
-	elapsed := utils.median_duration(runs)
+	start := time.tick_now()
+	rayt.renderer_render_threaded(
+		state.raytracer_data,
+		state.cam,
+		&state.world,
+		state.pixels,
+		state.loaded.render.threads,
+	)
+	elapsed := time.tick_since(start)
 	state.render_ms = time.duration_milliseconds(elapsed)
 	editor_save_render(state, elapsed)
 }
@@ -528,9 +523,16 @@ editor_free :: proc(state: ^Editor_State) {
 
 editor_run :: proc(config_path := "scenes/complex.json", auto_render := false) {
 	rl.SetConfigFlags({.WINDOW_RESIZABLE})
-	rl.InitWindow(1300, 950, "Odin Raytracer")
+	rl.InitWindow(1280, 800, "CPU Raytracer V2")
+	editor_theme_init()
+	{
+		screen := rl.GetMonitorWidth(rl.GetCurrentMonitor())
+		pos := max(0, (screen-1280)/2)
+		rl.SetWindowPosition(pos, 60)
+	}
 	rl.SetExitKey(.KEY_NULL)
 	defer rl.CloseWindow()
+	rl.SetWindowMinSize(900, 620)
 	rl.SetTargetFPS(60)
 
 	state := Editor_State {

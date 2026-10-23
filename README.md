@@ -5,6 +5,12 @@ A CPU path tracer written in [Odin](https://odin-lang.org/), based on the
 The interactive preview uses raylib for 3D drawing and raygui for a compact
 camera/render/scene control panel.
 
+This is my second pass through the series: I first implemented the books in
+Rust, and this project rebuilds everything in Odin as a fresh version with a
+new interactive editor on top.
+
+![App usage](usage.gif)
+
 ## Table of Contents
 
 - [Odin Raytracer](#odin-raytracer)
@@ -49,9 +55,8 @@ Source: [raytracing.github.io](https://raytracing.github.io/) ·
 
 ### App preview
 
-![Ray Tracer Preview before rendering](main_screen_print.png)
-
-*The main app view before a render starts.*
+The GIF at the top shows the editor in action: fly camera, BVH bounding-box
+inspection, and a blocking CPU render.
 
 ### Larger examples
 
