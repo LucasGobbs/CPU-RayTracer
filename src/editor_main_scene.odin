@@ -1,5 +1,7 @@
 package main
 
+import "core:c"
+import "core:fmt"
 import rayt "raytracer"
 import collider "raytracer/collider"
 import rl "vendor:raylib"
@@ -199,6 +201,57 @@ editor_draw_texture_contained :: proc(texture: rl.Texture2D, area: rl.Rectangle)
 	rl.DrawTexturePro(texture, {0, 0, tw, th}, dst, {}, 0, rl.WHITE)
 }
 
+editor_draw_hud :: proc(state: ^Editor_State, area: rl.Rectangle) {
+	h := f32(34)
+	rl.DrawRectangleRec({area.x, 0, area.width, h}, HUD_BG)
+	rl.DrawRectangleRec({area.x, h, area.width, 1}, PANEL_BORDER)
+	editor_text(
+		c.int(area.x)+16,
+		9,
+		fmt.ctprintf("%s", state.loaded.scene.name),
+		16,
+		TEXT_PRIMARY,
+	)
+	cam := state.fly
+	info := fmt.ctprintf(
+		"%.1f, %.1f, %.1f   fov %.0f",
+		cam.position.x, cam.position.y, cam.position.z, cam.fovy,
+	)
+	editor_text(
+		c.int(area.x+area.width)-20-editor_text_width(info, 14),
+		10,
+		info,
+		14,
+		TEXT_MUTED,
+	)
+
+	sh := f32(26)
+	sy := area.y+area.height-sh
+	rl.DrawRectangleRec({area.x, sy, area.width, sh}, HUD_BG)
+	rl.DrawRectangleRec({area.x, sy, area.width, 1}, PANEL_BORDER)
+	mode: cstring = "RENDER" if state.show_render else "PREVIEW"
+	mode_color := ACCENT if state.show_render else rl.Color{120, 200, 140, 255}
+	editor_text(c.int(area.x)+16, c.int(sy)+6, mode, 14, mode_color)
+	hint: cstring = "ENTER raytrace   G grouping   BACKSPACE preview"
+	editor_text(
+		c.int(area.x+area.width)-20-editor_text_width(hint, 14),
+		c.int(sy)+6,
+		hint,
+		14,
+		TEXT_MUTED,
+	)
+
+	if state.mouse_captured && !state.show_render {
+		editor_text(
+			c.int(area.x)+16,
+			c.int(sy)-30,
+			"ESC releases the mouse",
+			14,
+			rl.Color{225, 228, 236, 150},
+		)
+	}
+}
+
 editor_draw_main :: proc(state: ^Editor_State) {
 	area := rl.Rectangle{
 		f32(EDITOR_SIDEBAR_WIDTH),
@@ -208,7 +261,6 @@ editor_draw_main :: proc(state: ^Editor_State) {
 	}
 	if state.show_render && state.has_render {
 		editor_draw_texture_contained(state.render_tex, area)
-		rl.DrawText("render result (BACKSPACE for preview)", EDITOR_SIDEBAR_WIDTH+12, 12, 18, rl.RAYWHITE)
 	} else {
 		rl.DrawTextureRec(
 			state.scene_rt.texture,
@@ -217,4 +269,5 @@ editor_draw_main :: proc(state: ^Editor_State) {
 			rl.WHITE,
 		)
 	}
+	editor_draw_hud(state, area)
 }
