@@ -17,11 +17,326 @@
     "vfov": 40,
     "defocus_angle": 0,
     "focus_dist": 0.1,
-    "samples": 100,
+    "samples": 200,
     "max_depth": 50
   },
-
-  "spheres": [],
+  "spheres": [
+    {
+      "position": [4.35, 0.6, 1.0],
+      "radius": 0.6,
+      "material": {
+        "kind": "dielectric",
+        "refraction_index": 1.5
+      }
+    },
+    {
+      "position": [3.35, 0.42, 1.6],
+      "radius": 0.42,
+      "material": {
+        "kind": "metal",
+        "albedo": [0.88, 0.88, 0.92],
+        "fuzz": 0.02
+      }
+    },
+    {
+      "position": [1.05, 0.4, 3.6],
+      "radius": 0.4,
+      "material": {
+        "kind": "lambertian",
+        "albedo": [0.65, 0.05, 0.05]
+      }
+    },
+    {
+      "position": [0.75, 0.25, 2.6],
+      "radius": 0.25,
+      "material": {
+        "kind": "metal",
+        "albedo": [0.95, 0.78, 0.35],
+        "fuzz": 0.15
+      }
+    }
+    ,
+    {
+      "position": [3.66, 3.75, 3.53],
+      "radius": 0.45,
+      "material": {
+        "kind": "metal",
+        "albedo": [0.93, 0.53, 0.45],
+        "fuzz": 0.03
+      }
+    },
+    {
+      "position": [1.83, 2.15, 1.69],
+      "radius": 0.5,
+      "material": {
+        "kind": "dielectric",
+        "refraction_index": 1.5
+      }
+    },
+    {
+      "position": [1.83, 2.15, 1.69],
+      "radius": 0.33,
+      "material": {
+        "kind": "dielectric",
+        "refraction_index": 1.0
+      }
+    },
+    {
+      "position": ["0.25;1.15", 0.07, "0.25;2.2"],
+      "radius": 0.07,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.25;1.15", 0.07, "0.25;2.2"],
+      "radius": 0.07,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.25" }
+    },
+    {
+      "position": ["0.25;1.15", 0.07, "0.25;2.2"],
+      "radius": 0.07,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.25;1.15", 0.07, "0.25;2.2"],
+      "radius": 0.07,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.25;1.15", 0.09, "4.15;5.3"],
+      "radius": 0.09,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.25" }
+    },
+    {
+      "position": ["0.25;1.15", 0.09, "4.15;5.3"],
+      "radius": 0.09,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.25;1.15", 0.09, "4.15;5.3"],
+      "radius": 0.09,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["3.25;5.3", 0.06, "0.25;1.05"],
+      "radius": 0.06,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["3.25;5.3", 0.06, "0.25;1.05"],
+      "radius": 0.06,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.25" }
+    },
+    {
+      "position": ["3.25;5.3", 0.06, "0.25;1.05"],
+      "radius": 0.06,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["3.95;5.3", 0.1, "1.1;2.55"],
+      "radius": 0.1,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["3.95;5.3", 0.1, "1.1;2.55"],
+      "radius": 0.1,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.25" }
+    },
+    {
+      "position": ["3.95;5.3", 0.1, "1.1;2.55"],
+      "radius": 0.1,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["4.55;5.3", 0.08, "2.7;5.3"],
+      "radius": 0.08,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["4.55;5.3", 0.08, "2.7;5.3"],
+      "radius": 0.08,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.25" }
+    },
+    {
+      "position": ["4.55;5.3", 0.08, "2.7;5.3"],
+      "radius": 0.08,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.2;2.55", 0.08, "0.2;1.2"],
+      "radius": 0.08,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.2;2.55", 0.08, "0.2;1.2"],
+      "radius": 0.08,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.2;2.55", 0.08, "0.2;1.2"],
+      "radius": 0.08,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["1.9;2.6", 0.09, "0.2;2.5"],
+      "radius": 0.09,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["1.9;2.6", 0.09, "0.2;2.5"],
+      "radius": 0.09,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["1.9;2.6", 0.09, "0.2;2.5"],
+      "radius": 0.09,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["2.7;3.5", 0.08, "0.2;0.9"],
+      "radius": 0.08,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["2.7;3.5", 0.08, "0.2;0.9"],
+      "radius": 0.08,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["2.7;3.5", 0.08, "0.2;0.9"],
+      "radius": 0.08,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.2;0.75", 0.1, "2.6;4.0"],
+      "radius": 0.1,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.2;0.75", 0.1, "2.6;4.0"],
+      "radius": 0.1,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.2;0.75", 0.1, "2.6;4.0"],
+      "radius": 0.1,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.9;2.5", 0.07, "3.4;4.6"],
+      "radius": 0.07,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.9;2.5", 0.07, "3.4;4.6"],
+      "radius": 0.07,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.9;2.5", 0.07, "3.4;4.6"],
+      "radius": 0.07,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.9;2.5", 0.07, "3.4;4.6"],
+      "radius": 0.07,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["3.4;5.35", 0.09, "2.6;3.4"],
+      "radius": 0.09,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["3.4;5.35", 0.09, "2.6;3.4"],
+      "radius": 0.09,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["3.4;5.35", 0.09, "2.6;3.4"],
+      "radius": 0.09,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["3.4;5.35", 0.1, "3.5;5.35"],
+      "radius": 0.1,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["3.4;5.35", 0.1, "3.5;5.35"],
+      "radius": 0.1,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["3.4;5.35", 0.1, "3.5;5.35"],
+      "radius": 0.1,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["3.4;5.35", 0.1, "3.5;5.35"],
+      "radius": 0.1,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.3;5.3", 0.11, "0.3;1.5"],
+      "radius": 0.11,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.3;5.3", 0.11, "0.3;1.5"],
+      "radius": 0.11,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.3;5.3", 0.11, "0.3;1.5"],
+      "radius": 0.11,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.3;5.3", 0.13, "0.3;1.5"],
+      "radius": 0.13,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.3;5.3", 0.13, "0.3;1.5"],
+      "radius": 0.13,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.3;5.3", 0.13, "0.3;1.5"],
+      "radius": 0.13,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "metal", "albedo": ["0.55;0.95", "0.55;0.95", "0.55;0.95"], "fuzz": "0;0.3" }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "lambertian", "albedo": ["0.15;0.9", "0.15;0.9", "0.15;0.9"] }
+    },
+    {
+      "position": ["0.3;5.3", 0.12, "0.3;1.5"],
+      "radius": 0.12,
+      "material": { "kind": "dielectric", "refraction_index": 1.5 }
+    }
+  ],
 
   "quads": [
     {
@@ -47,8 +362,9 @@
       "edge_u": [5.55, 0, 0],
       "edge_v": [0, 0, 5.55],
       "material": {
-        "kind": "lambertian",
-        "albedo": [0.73, 0.73, 0.73]
+        "kind": "metal",
+        "albedo": [0.72, 0.72, 0.76],
+        "fuzz": 0.08
       }
     },
     {
@@ -68,6 +384,15 @@
         "kind": "lambertian",
         "albedo": [0.73, 0.73, 0.73]
       }
+    },
+    {
+      "corner": [2.28, 5.54, 2.3],
+      "edge_u": [1.0, 0, 0],
+      "edge_v": [0, 0, 1.0],
+      "material": {
+        "kind": "diffuse_light",
+        "emission": [1.6, 1.45, 1.2]
+      }
     }
   ],
 
@@ -78,8 +403,9 @@
       "rotation_deg": 15,
       "offset": [2.65, 0, 2.95],
       "material": {
-        "kind": "lambertian",
-        "albedo": [0.73, 0.73, 0.73]
+        "kind": "metal",
+        "albedo": [0.95, 0.78, 0.35],
+        "fuzz": 0.05
       }
     },
     {

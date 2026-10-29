@@ -79,7 +79,7 @@ load_material :: proc(material: scene_data.SceneMaterial) -> Material {
 	case .dielectric:
 		return DieletricMaterial{refraction_index = material.refraction_index}
 	case .diffuse_light:
-		return DiffuseLightMaterial{emission = Color{1.0, 1.0, 1.0}}
+		return DiffuseLightMaterial{emission = Color(material.emission)}
 	case:
 		return LambertianMaterial{albedo = Color{1, 0, 1}}
 	}

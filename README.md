@@ -51,12 +51,16 @@ Source: [raytracing.github.io](https://raytracing.github.io/) ·
 | ![fast_spheres](rendered/2026-09-13_17-24-56_fast_spheres.png) | **Defocus blur** — thin-lens depth of field: the focal plane sits on the mirror ball while the rest smears with aperture size. |
 | ![complex](rendered/2026-09-14_17-01-59_complex_BVH_render_5633.69ms_1789405319010355000.png) | **Complex scene** — 100+ random spheres of mixed material on a mirror ground; the RTOW "final scene" equivalent. 5.6 s through the BVH. |
 | ![lots](rendered/2026-09-07_23-36-45_lots_of_objects.png) | **Many-object stress test** — book-cover-style field of hundreds of spheres; what the BVH is for. |
-| ![cornell](rendered/2026-09-14_19-35-01_cornell_BVH_render_1070.67ms_1789414501959219000.png) | **Cornell box** — correct closed-box geometry with rotated cuboids and a light panel, but no emissive material yet, so the interior is only lit by the sky gradient leaking “through” the box. Lights are the top todo. |
+| ![cornell](rendered/2026-10-29_14-33-19_cornell_BVH_render_223957.55ms_1793284399431924000.png) | **Cornell box, materials + spheres** — emissive light panel, metal floor, gold and copper cuboids, hollow-glass bubble, and ~50 seeded-random small spheres across the floor (positions sampled per-component from `min;max` ranges). 224 s at 1000×1000, 200 spp. |
 
 ### App preview
 
 The GIF at the top shows the editor in action: fly camera, BVH bounding-box
 inspection, and a blocking CPU render.
+
+![Editor showing the Cornell scene](main_screen_print_2.png)
+
+*Editor preview of the Cornell scene: camera/quality/output params, wireframe colliders, and the BVH boxes around every sphere and cuboid.*
 
 ### Larger examples
 
@@ -75,6 +79,10 @@ inspection, and a blocking CPU render.
 ![Cornell box](rendered/2026-09-14_19-35-01_cornell_BVH_render_1070.67ms_1789414501959219000.png)
 
 *Cornell box geometry before emissive materials are implemented.*
+
+![Cornell box with materials](rendered/2026-10-29_14-33-19_cornell_BVH_render_223957.55ms_1793284399431924000.png)
+
+*Cornell box with the emissive light panel, metal/gold materials, glass bubble and seeded-random floor spheres.*
 
 More renders (including Linear-vs-BVH timing runs) live in `rendered/`; every
 filename encodes `YYYY-MM-DD_HH-MM-SS_scene_grouping_render_<ms>ms_<ns>.png`
